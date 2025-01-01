@@ -2,7 +2,7 @@ import { Group } from "@prisma/client";
 import { ICreateGroup, IGroupsRepository } from "../interfaces/IGroups";
 import { prisma } from "../database";
 
-export class PrismaGroupsRepository implements IGroupsRepository {
+export class GroupsRepository implements IGroupsRepository {
   find(): Promise<Group[]> {
     return prisma.group.findMany();
   }

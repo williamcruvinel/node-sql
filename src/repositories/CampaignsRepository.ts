@@ -6,7 +6,7 @@ import {
 } from "../interfaces/ICampaigns";
 import { prisma } from "../database";
 
-export class PrismaCampaignsRepository implements ICampaignsRepository {
+export class CampaignsRepository implements ICampaignsRepository {
   find(): Promise<Campaign[]> {
     return prisma.campaign.findMany();
   }

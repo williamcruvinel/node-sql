@@ -7,7 +7,7 @@ import {
 } from "../interfaces/ILeads";
 import { prisma } from "../database";
 
-export class PrismaLeadsRepository implements ILeadsRepository {
+export class LeadsRepository implements ILeadsRepository {
   async find(params: IFindLeadsParams): Promise<Lead[]> {
     let where: Prisma.LeadWhereInput = {
       name: {
