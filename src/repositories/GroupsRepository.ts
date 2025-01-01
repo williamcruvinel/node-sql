@@ -1,11 +1,8 @@
 import { Group } from "@prisma/client";
-import {
-  CreateGroupAttributes,
-  GroupsRepository,
-} from "../interfaces/GroupsRepository";
+import { ICreateGroup, IGroupsRepository } from "../interfaces/IGroups";
 import { prisma } from "../database";
 
-export class PrismaGroupsRepository implements GroupsRepository {
+export class PrismaGroupsRepository implements IGroupsRepository {
   find(): Promise<Group[]> {
     return prisma.group.findMany();
   }
@@ -19,13 +16,13 @@ export class PrismaGroupsRepository implements GroupsRepository {
     });
   }
 
-  create(attributes: CreateGroupAttributes): Promise<Group> {
+  create(attributes: ICreateGroup): Promise<Group> {
     return prisma.group.create({ data: attributes });
   }
 
   updateById(
     id: number,
-    attributes: Partial<CreateGroupAttributes>
+    attributes: Partial<ICreateGroup>
   ): Promise<Group | null> {
     return prisma.group.update({
       where: { id },

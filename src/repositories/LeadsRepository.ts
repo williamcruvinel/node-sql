@@ -1,14 +1,14 @@
 import { Lead, Prisma } from "@prisma/client";
 import {
-  CreateLeadAttributes,
-  FindLeadsParams,
-  LeadsRepository,
-  LeadWhereParams,
-} from "../interfaces/LeadsRepository";
+  ICreateLead,
+  IFindLeadsParams,
+  ILeadsRepository,
+  ILeadWhereParams,
+} from "../interfaces/ILeads";
 import { prisma } from "../database";
 
-export class PrismaLeadsRepository implements LeadsRepository {
-  async find(params: FindLeadsParams): Promise<Lead[]> {
+export class PrismaLeadsRepository implements ILeadsRepository {
+  async find(params: IFindLeadsParams): Promise<Lead[]> {
     let where: Prisma.LeadWhereInput = {
       name: {
         contains: params.where?.name?.contains,
@@ -48,7 +48,7 @@ export class PrismaLeadsRepository implements LeadsRepository {
     });
   }
 
-  async count(where: LeadWhereParams): Promise<number> {
+  async count(where: ILeadWhereParams): Promise<number> {
     let prismaWhere: Prisma.LeadWhereInput = {
       name: {
         contains: where?.name?.contains,
@@ -69,13 +69,13 @@ export class PrismaLeadsRepository implements LeadsRepository {
     return prisma.lead.count({ where: prismaWhere });
   }
 
-  async create(attributes: CreateLeadAttributes): Promise<Lead> {
+  async create(attributes: ICreateLead): Promise<Lead> {
     return prisma.lead.create({ data: attributes });
   }
 
   async updateById(
     id: number,
-    attributes: Partial<CreateLeadAttributes>
+    attributes: Partial<ICreateLead>
   ): Promise<Lead> {
     return prisma.lead.update({
       where: { id },

@@ -1,9 +1,5 @@
 import { Handler } from "express";
-import {
-  CreateLeadRequestSchema,
-  GetLeadsRequestSchema,
-  UpdateLeadRequestSchema,
-} from "../schemas/LeadsRequestSchema";
+import { CreateLeadRequestSchema, GetLeadsRequestSchema, UpdateLeadRequestSchema} from "../schemas/LeadsRequestSchema";
 import { LeadsService } from "../services/LeadsServices";
 
 export class LeadsController {

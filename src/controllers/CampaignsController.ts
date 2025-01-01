@@ -4,10 +4,10 @@ import {
   UpdateCampaignRequestSchema,
 } from "../schemas/CampaignsRequestSchema";
 import { HttpError } from "../errors/HttpError";
-import { CampaignsRepository } from "../interfaces/CampaignsRepository";
+import { ICampaignsRepository } from "../interfaces/ICampaigns";
 
 export class CampaignsController {
-  constructor(private readonly campaignsRepository: CampaignsRepository) {}
+  constructor(private readonly campaignsRepository: ICampaignsRepository) {}
 
   index: Handler = async (req, res, next) => {
     try {

@@ -1,30 +1,30 @@
 import { HttpError } from "../errors/HttpError";
 import {
-  CreateLeadAttributes,
-  LeadsRepository,
+  ICreateLead,
+  ILeadsRepository,
   LeadStatus,
-  LeadWhereParams,
-} from "../interfaces/LeadsRepository";
+  ILeadWhereParams,
+} from "../interfaces/ILeads";
 
-interface GetLeadsWithPaginationParams {
+interface IGetLeadsWithPaginationParams {
   page?: number;
   pageSize?: number;
-  name?: string;
+  name?:  string,
   status?: LeadStatus;
   sortBy?: "name" | "status" | "createdAt";
   order?: "asc" | "desc";
 }
 
 export class LeadsService {
-  constructor(private readonly leadsRepository: LeadsRepository) {}
+  constructor(private readonly leadsRepository: ILeadsRepository) {}
 
-  async getAllLeadsPaginated(params: GetLeadsWithPaginationParams) {
+  async getAllLeadsPaginated(params: IGetLeadsWithPaginationParams) {
     const { name, status, page = 1, pageSize = 10, sortBy, order } = params;
 
     const limit = pageSize;
     const offset = (page - 1) * limit;
 
-    const where: LeadWhereParams = {};
+    const where: ILeadWhereParams = {};
 
     if (name) where.name = { contains: name, mode: "insensitive" };
     if (status) where.status = status;
@@ -55,13 +55,13 @@ export class LeadsService {
     return lead;
   }
 
-  async createLead(params: CreateLeadAttributes) {
+  async createLead(params: ICreateLead) {
     if (!params.status) params.status = "New";
     const newLead = await this.leadsRepository.create(params);
     return newLead;
   }
 
-  async updateLead(leadId: number, params: Partial<CreateLeadAttributes>) {
+  async updateLead(leadId: number, params: Partial<ICreateLead>) {
     const lead = await this.leadsRepository.findById(leadId);
     if (!lead) throw new HttpError(404, "lead não encontrado");
 

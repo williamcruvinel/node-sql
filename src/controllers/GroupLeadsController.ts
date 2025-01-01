@@ -1,16 +1,13 @@
 import { Handler } from "express";
 import { GetLeadsRequestSchema } from "../schemas/LeadsRequestSchema";
 import { AddLeadRequestSchema } from "../schemas/GroupsRequestSchema";
-import { GroupsRepository } from "../interfaces/GroupsRepository";
-import {
-  LeadsRepository,
-  LeadWhereParams,
-} from "../interfaces/LeadsRepository";
+import { IGroupsRepository } from "../interfaces/IGroups";
+import { ILeadsRepository, ILeadWhereParams } from "../interfaces/ILeads";
 
 export class GroupLeadsController {
   constructor(
-    private readonly groupsRepository: GroupsRepository,
-    private readonly leadsRepository: LeadsRepository
+    private readonly groupsRepository: IGroupsRepository,
+    private readonly leadsRepository: ILeadsRepository
   ) {}
 
   getLeads: Handler = async (req, res, next) => {
@@ -29,7 +26,7 @@ export class GroupLeadsController {
       const limit = Number(pageSize);
       const offset = (Number(page) - 1) * limit;
 
-      const where: LeadWhereParams = { groupId };
+      const where: ILeadWhereParams = { groupId };
 
       if (name) where.name = { contains: name, mode: "insensitive" };
       if (status) where.status = status;

@@ -1,11 +1,12 @@
+// Instacia as classes para as rotas
 import { LeadsController } from "./controllers/LeadsController";
 import { GroupsController } from "./controllers/GroupsController";
 import { CampaignsController } from "./controllers/CampaignsController";
 import { CampaignLeadsController } from "./controllers/CampaignLeadsController";
 import { GroupLeadsController } from "./controllers/GroupLeadsController";
-import { PrismaLeadsRepository } from "./repositories/PrismaLeadsRepository";
-import { PrismaGroupsRepository } from "./repositories/PrismaGroupsRepository";
-import { PrismaCampaignsRepository } from "./repositories/PrismaCampaignsRepository";
+import { PrismaLeadsRepository } from "./repositories/LeadsRepository";
+import { PrismaGroupsRepository } from "./repositories/GroupsRepository";
+import { PrismaCampaignsRepository } from "./repositories/CampaignsRepository";
 import { LeadsService } from "./services/LeadsServices";
 
 export const leadsRepository = new PrismaLeadsRepository();

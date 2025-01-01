@@ -1,14 +1,15 @@
 import cors from "cors";
 import express from "express";
 import { router } from "./router";
-import { errorHandlerMiddleware } from "./middlewares/error-handler";
+// Importa o middleware personalizado "errorHandlerMiddleware" para tratamento de erros
+import { errorHandlerMiddleware } from "./middlewares/error-handler"; 
 
 const app = express();
-
-app.use(cors());
 app.use(express.json());
-app.use("/api", router);
-app.use(errorHandlerMiddleware);
+app.use(cors()); // Middleware para permitir requisições de diferentes origens
+
+app.use("/api", router); 
+app.use(errorHandlerMiddleware); // Middleware global para tratar erros de forma centralizada
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () =>

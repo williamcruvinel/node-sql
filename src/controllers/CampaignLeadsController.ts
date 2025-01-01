@@ -4,16 +4,13 @@ import {
   GetCampaignLeadsRequestSchema,
   UpdateLeadStatusRequestSchema,
 } from "../schemas/CampaignsRequestSchema";
-import { CampaignsRepository } from "../interfaces/CampaignsRepository";
-import {
-  LeadsRepository,
-  LeadWhereParams,
-} from "../interfaces/LeadsRepository";
+import { ICampaignsRepository } from "../interfaces/ICampaigns";
+import { ILeadsRepository, ILeadWhereParams } from "../interfaces/ILeads";
 
 export class CampaignLeadsController {
   constructor(
-    private readonly campaignsRepository: CampaignsRepository,
-    private readonly leadsRepository: LeadsRepository
+    private readonly campaignsRepository: ICampaignsRepository,
+    private readonly leadsRepository: ILeadsRepository
   ) {}
 
   getLeads: Handler = async (req, res, next) => {
@@ -32,7 +29,7 @@ export class CampaignLeadsController {
       const limit = Number(pageSize);
       const offset = (Number(page) - 1) * limit;
 
-      const where: LeadWhereParams = { campaignId, campaignStatus: status };
+      const where: ILeadWhereParams = { campaignId, campaignStatus: status };
 
       if (name) where.name = { contains: name, mode: "insensitive" };
 

@@ -1,12 +1,12 @@
 import { Campaign } from "@prisma/client";
 import {
-  AddLeadToCampaignAttributes,
-  CampaignsRepository,
-  CreateCampaignAttributes,
-} from "../interfaces/CampaignsRepository";
+  IAddLeadToCampaign,
+  ICampaignsRepository,
+  ICreateCampaign,
+} from "../interfaces/ICampaigns";
 import { prisma } from "../database";
 
-export class PrismaCampaignsRepository implements CampaignsRepository {
+export class PrismaCampaignsRepository implements ICampaignsRepository {
   find(): Promise<Campaign[]> {
     return prisma.campaign.findMany();
   }
@@ -24,13 +24,13 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
     });
   }
 
-  create(attributes: CreateCampaignAttributes): Promise<Campaign> {
+  create(attributes: ICreateCampaign): Promise<Campaign> {
     return prisma.campaign.create({ data: attributes });
   }
 
   async updateById(
     id: number,
-    attributes: Partial<CreateCampaignAttributes>
+    attributes: Partial<ICreateCampaign>
   ): Promise<Campaign | null> {
     const campaignExists = await prisma.campaign.findUnique({ where: { id } });
     if (!campaignExists) return null;
@@ -46,12 +46,12 @@ export class PrismaCampaignsRepository implements CampaignsRepository {
     return prisma.campaign.delete({ where: { id } });
   }
 
-  async addLead(attributes: AddLeadToCampaignAttributes): Promise<void> {
+  async addLead(attributes: IAddLeadToCampaign): Promise<void> {
     await prisma.leadCampaign.create({ data: attributes });
   }
 
   async updateLeadStatus(
-    attributes: AddLeadToCampaignAttributes
+    attributes: IAddLeadToCampaign
   ): Promise<void> {
     await prisma.leadCampaign.update({
       data: { status: attributes.status },

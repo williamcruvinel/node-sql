@@ -30,6 +30,8 @@ router.post("/campaigns/:campaignId/leads", campaignLeadsController.addLead)
 router.put("/campaigns/:campaignId/leads/:leadId", campaignLeadsController.updateLeadStatus)
 router.delete("/campaigns/:campaignId/leads/:leadId", campaignLeadsController.removeLead)
 
+
+//rota de teste
 router.get("/status", async (req, res, next) => {
   try {
     res.json({ message: "ok" });

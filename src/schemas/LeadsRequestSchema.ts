@@ -1,6 +1,6 @@
-import {optional, z } from "zod";
+import { z } from "zod";
 
-const LeadStatusSchema = z.enum([
+export const LeadStatusSchema = z.enum([
   "New",
   "Contacted",
   "Qualified",
@@ -15,7 +15,7 @@ export const GetLeadsRequestSchema = z.object({
   pageSize: z.string().optional(),
   name: z.string().optional(),
   status: LeadStatusSchema.optional(),
-  sortBy: z.enum(["name", "status", "createdAt"]).optional(),
+  sortBy: z.enum(["name", "status", "createdAt"]).optional(), // Ordenar por
   order: z.enum(["asc", "desc"]).optional()
 })
 
